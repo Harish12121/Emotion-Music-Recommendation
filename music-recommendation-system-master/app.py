@@ -10,6 +10,7 @@ root.setLevel(logging.DEBUG)
 
 
 app = Flask(__name__,static_folder="./templates/assets")
+app = Flask(__name__, static_url_path='/static')
 
 
 ########################################################### Codes 
@@ -231,7 +232,21 @@ def get_emotion():
     )
     return response
 
+@app.route('/emotion/<emotion>')
+def emotion_page(emotion):
+    emotion = emotion.capitalize()  # Capitalize the first letter of the emotion
+    try:
+        return render_template(f'{emotion}.html')
+    except:
+        return render_template('Error.html', error=f'No template found for {emotion} emotion.')
 
+@app.route('/')
+def index():
+    return render_template('index.html')  # Assuming you have an index.html template
+
+@app.route('/templates/<emotion>.html')
+def emotion_movies(emotion):
+    return render_template(f'{emotion}.html')
 
 #launch a Tornado server with HTTPServer.
 if __name__ == '__main__':

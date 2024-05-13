@@ -145,6 +145,26 @@
         padding: 1rem;
         text-align: center;
     }
+    #nowPlay1 {
+        display: inline-flex;
+        width: 100%;
+        background: var(--colorDark1) -webkit-linear-gradient(top, #393939 0%, #323232 100%);
+        ;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        text-align: center;
+        font-weight: bold;
+        color: yellowgreen;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    #nowPlay1 #npTitle1 {
+        flex: 1;
+        padding: 1rem;
+        text-align: center;
+    }
 
     #plList li {
         cursor: pointer;
@@ -192,6 +212,35 @@
     .plyr--audio .plyr__controls button:hover {
         background: rgba(0, 0, 0, .1);
     }
+    /* styles.css */
+
+    .text-center {
+        text-align: center;
+        margin-top: 20px; /* Adjust the value as needed */
+    }
+
+    /* Button styles */
+    .button {
+            display: inline-block;
+            width: fit-content;
+            height: fit-content;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+    /* Button hover effect */
+    .button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
 </style>
 
 <body>
@@ -207,7 +256,7 @@
             </svg>
         </span>
         <p>
-        <h2>Music Recommendation System</h2>
+        <h2>Music & Movie Recommendation System</h2>
         </p>
         <div class="scrol-demo" style="display: flex;">
             <div class="logout" onclick=" window.location.href='{{ url_for('log') }}'">
@@ -242,7 +291,7 @@
                                     </svg>
                                 </span>
                                 <p>
-                                <h2>Music Recommendation System</h2>
+                                <h2>Music & Movie Recommendation System</h2>
                                 </p>
                                 <div class="wavy">
                                     <span style="--i:1;">A</span>
@@ -265,21 +314,38 @@
         </div>
     </div>
 
-    <header>
-        <div id="nowPlay">
-            <div>Playing {{emotion}} Song's</div>
-            <div id="npTitle"></div>
-        </div>
-    </header>
-
-    <div class="container mt-3">
-        <div id="mainwrap">
-            <div id="plwrap">
-                <ul id="plList"></ul>
+        <!-- Header section -->
+        <header>
+            <div id="nowPlay">
+                <div>Playing {{emotion}} Songs</div>
+                <div id="npTitle"></div>
+            </div>
+        </header>
+    
+        <!-- Main content -->
+        <div class="container mt-3">
+            <div id="mainwrap">
+                <div id="plwrap">
+                    <ul id="plList"></ul>
+                </div>
             </div>
         </div>
-    </div>
-
+    
+        <div id="nowPlay1">
+            <div>Recommending {{emotion}} Movies</div>
+            <div id="npTitle1"></div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="button" class="button" onclick="Redirect()">{{emotion}} Movies List</button>
+        </div>
+        <script>
+            function Redirect() {
+                var emotion = "{{emotion}}";
+                var filePath = 'templates/' + emotion + '.html';
+                window.location.href = filePath;
+            }
+        </script>
+        
     <footer class="fixed-bottom">
         <div id="audiowrap">
             <div id="audio0">
